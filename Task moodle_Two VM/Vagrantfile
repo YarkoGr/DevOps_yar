@@ -1,0 +1,23 @@
+
+BOX_IMAGE = "centos/7" 
+MACINES_COUNT = 2 #кількість машин
+MACINES_NAME = "VG-Moodle" #назва машини + буде присвоєний номер
+IP_PART1 = 192
+IP_PART2 = 168
+IP_PART3 = 56
+IP_PART4 = 10 #наступа машина буде мати значення "11" + (i)
+
+
+Vagrant.configure("2") do |config|
+  (1..MACINES_COUNT).each do |i|
+    config.vm.define "#{MACINES_NAME}_#{i}" do |subconfig|
+      subconfig.vm.box = BOX_IMAGE 
+      subconfig.vm.hostname = "#{MACINES_NAME}#{i}"
+      subconfig.vm.network :private_network, ip: "#{IP_PART1}.#{IP_PART2}.#{IP_PART3}.#{IP_PART4 - 1 + i}"
+      subconfig.vm.provision "shell", path: "scenario_#{i}.sh"
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+  end
+  end
+end 
+end 
