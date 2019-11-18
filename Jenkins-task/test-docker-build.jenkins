@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 dir ('Jenkins-task/Docker') {
-                	sh 'docker build -t Jenkins-task/Docker:latest . '
+                	sh 'docker build -t jenkins-task/docker:latest . '
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push Jenkins-task/Docker:latest
+                docker push jenkins-task/docker:latest
                 '''
             }
         }
